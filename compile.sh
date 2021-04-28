@@ -22,6 +22,8 @@ elif [ ! -d "$1" ]; then
   exit 1
 fi
 
+mkdir -p "$1/bin" # Not existing on clean git-clone.
+
 cd "$1"
 VERS="1.0"
 MOD_NAME=$(basename "$1")
