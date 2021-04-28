@@ -6,7 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import com.starcom.paint.Frame;
-import com.starcom.paint.PaintObject;
+import com.starcom.paint.AbstractPaintObject;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeLineCap;
@@ -72,7 +72,7 @@ public class ShapeTool implements ITool
 
   private void createPaintObject(Line line2, Circle circle)
   {
-    new PaintObject(line, circle)
+    new AbstractPaintObject(line, circle)
     {
       @Override
       public void moveGizmo(Node gizmo, double posX, double posY)
@@ -105,9 +105,9 @@ public class ShapeTool implements ITool
       @Override
       public void appendGizmos(ArrayList<Node> gizmoList)
       {
-        gizmoList.add(PaintObject.createGizmoCircle(GIZMO_START));
-        gizmoList.add(PaintObject.createGizmoCircle(GIZMO_END));
-        gizmoList.add(PaintObject.createGizmoCircle(GIZMO_CENTER));
+        gizmoList.add(AbstractPaintObject.createGizmoCircle(GIZMO_START));
+        gizmoList.add(AbstractPaintObject.createGizmoCircle(GIZMO_END));
+        gizmoList.add(AbstractPaintObject.createGizmoCircle(GIZMO_CENTER));
       }
 
       @Override
@@ -129,6 +129,19 @@ public class ShapeTool implements ITool
         gizmo = (Circle)gizmoList.get(2);
         gizmo.setCenterX(sx + lx);
         gizmo.setCenterY(sy + ly);
+      }
+
+      @Override
+      public String saveObj()
+      {
+        // TODO Class instead of anonym class, and complete this function.
+        return null;
+      }
+
+      @Override
+      public void loadObj(String data)
+      {
+        // TODO Class instead of anonym class, and complete this function.
       }
     };
   }

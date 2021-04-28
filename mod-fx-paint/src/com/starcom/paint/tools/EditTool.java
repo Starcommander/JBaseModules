@@ -5,16 +5,18 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
-import com.starcom.paint.PaintObject;
+import com.starcom.paint.AbstractPaintObject;
 import com.starcom.paint.events.IntersectEvent;
+import com.starcom.listener.ObjListener2;
 
 public class EditTool implements ITool
 {
   static int line_thick = 5;
   static double opacity = 0.8;
+  static Node curGizmo;
+  static AbstractPaintObject curObj;
+  static ObjListener2 postUpdateHook;
   Pane pane;
-  Node curGizmo;
-  PaintObject curObj;
   
   @Override
   public void init(Pane pane)
@@ -35,7 +37,7 @@ public class EditTool implements ITool
     }
     else if (evType == EventType.CLICK)
     {
-      PaintObject oldObj = curObj;
+      AbstractPaintObject oldObj = curObj;
       double posX = event.getX();
       double posY = event.getY();
       findCursorIntersection(posX, posY);
@@ -58,8 +60,12 @@ public class EditTool implements ITool
         curObj.updateGizmoPositions();
       }
     }
+    if (postUpdateHook!=null) { postUpdateHook.actionPerformed(evType, event); }
   }
-  
+
+  /** Empty class for overriding, returns true on consume. **/
+  public static void setPostUpdateHook(ObjListener2 postUpdateHookNew) { postUpdateHook = postUpdateHookNew; }
+
   /** Set curObj on intersection, and curGizmo on intersectionGizmo. **/
   private void findCursorIntersection(double posX, double posY)
   {
@@ -107,13 +113,13 @@ public class EditTool implements ITool
   private boolean onIntersection(Node child, boolean isShapeSearch)
   {
     System.out.println("Selected: " + child);
-    PaintObject obj = PaintObject.findObjectOfGizmo(child);
+    AbstractPaintObject obj = AbstractPaintObject.findObjectOfGizmo(child);
     if (obj!=null)
     {
       curGizmo = child;
       curObj = obj;
     }
-    obj = PaintObject.findObjectOf(child);
+    obj = AbstractPaintObject.findObjectOf(child);
     if (obj!=null)
     {
       curObj = obj;
@@ -121,6 +127,9 @@ public class EditTool implements ITool
     if (isShapeSearch) { return curGizmo==null; }
     return curObj==null;
   }
+
+  public AbstractPaintObject getCurPaintObj() { return curObj; }
+  public Node getCurGizmo() { return curGizmo; }
 
   @Override
   public void onSelected()

@@ -17,7 +17,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Popup;
 import com.starcom.math.Point2i;
 import com.starcom.paint.Frame;
-import com.starcom.paint.PaintObject;
+import com.starcom.paint.AbstractPaintObject;
 
 public class SizeTool extends CropToolAbstract
 {
@@ -26,7 +26,7 @@ public class SizeTool extends CropToolAbstract
   Popup win;
   
   @Override
-  void doActivateGizmo(PaintObject headlessPaintObject)
+  void doActivateGizmo(AbstractPaintObject headlessPaintObject)
   {
     showSelectFrame(pane);
   }
@@ -123,7 +123,7 @@ public class SizeTool extends CropToolAbstract
   @Override
   void appendGizmoCircles(ArrayList<Node> gizmoList)
   {
-    gizmoList.add(PaintObject.createGizmoCircle(GIZMO_C));
+    gizmoList.add(AbstractPaintObject.createGizmoCircle(GIZMO_C));
   }
 
   @Override

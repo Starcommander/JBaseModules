@@ -14,7 +14,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import com.starcom.paint.PaintObject;
+import com.starcom.paint.AbstractPaintObject;
 import com.starcom.paint.Frame;
 
 public class TxtTool implements ITool
@@ -26,7 +26,7 @@ public class TxtTool implements ITool
   Text t;
   String s_txt;
   Node curGizmo;
-  PaintObject curObj;
+  AbstractPaintObject curObj;
   
   void makeRect()
   {
@@ -112,7 +112,7 @@ public class TxtTool implements ITool
     }
     else if (evType == EventType.CLICK)
     {
-      boolean wasGizmoNull = PaintObject.getFocusObject()==null;
+      boolean wasGizmoNull = AbstractPaintObject.getFocusObject()==null;
       curObj = null;
       curGizmo = null;
       
@@ -163,7 +163,7 @@ public class TxtTool implements ITool
   private boolean reText(MouseEvent event)
   {
     EditTool.findCursorIntersectionShape(pane, (child) -> onIntersection(child), event.getX(), event.getY());
-    if (curGizmo == null) { PaintObject.clearGizmos(pane); }
+    if (curGizmo == null) { AbstractPaintObject.clearGizmos(pane); }
     if (curObj!=null) { return true; }
     return false;
   }
@@ -172,7 +172,7 @@ public class TxtTool implements ITool
    *  @see IntersectEvent.onIntersect(c,b) **/
   private boolean onIntersection(Node child)
   {
-    PaintObject pObj = PaintObject.findObjectOf(child);
+    AbstractPaintObject pObj = AbstractPaintObject.findObjectOf(child);
     if (pObj!=null)
     {
       if (pObj.getNodeList().size()<2) { return true; }
@@ -182,7 +182,7 @@ public class TxtTool implements ITool
         return true;
       }
     }
-    pObj = PaintObject.findObjectOfGizmo(child);
+    pObj = AbstractPaintObject.findObjectOfGizmo(child);
     if (pObj!=null)
     {
       curObj = pObj;
@@ -194,7 +194,7 @@ public class TxtTool implements ITool
 
   private void createPaintObject(Rectangle r, Text t)
   {
-    new PaintObject(r, t)
+    new AbstractPaintObject(r, t)
     {
       @Override
       public void moveGizmo(Node gizmo, double posX, double posY)
@@ -225,9 +225,9 @@ public class TxtTool implements ITool
       @Override
       public void appendGizmos(ArrayList<Node> gizmoList)
       {
-        gizmoList.add(PaintObject.createGizmoCircle(GIZMO_START));
-        gizmoList.add(PaintObject.createGizmoCircle(GIZMO_END));
-        gizmoList.add(PaintObject.createGizmoCircle(GIZMO_CENTER));
+        gizmoList.add(AbstractPaintObject.createGizmoCircle(GIZMO_START));
+        gizmoList.add(AbstractPaintObject.createGizmoCircle(GIZMO_END));
+        gizmoList.add(AbstractPaintObject.createGizmoCircle(GIZMO_CENTER));
       }
 
       @Override
@@ -245,6 +245,19 @@ public class TxtTool implements ITool
         gizmo = (Circle)gizmoList.get(2);
         gizmo.setCenterX(r.getX() + (w/2.0));
         gizmo.setCenterY(r.getY() + (h/2.0));
+      }
+
+      @Override
+      public String saveObj()
+      {
+        // TODO Class instead of anonym class, and complete this function.
+        return null;
+      }
+
+      @Override
+      public void loadObj(String data)
+      {
+        // TODO Class instead of anonym class, and complete this function.
       }
     };
   }

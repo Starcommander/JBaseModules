@@ -5,6 +5,7 @@
 module com.starcom.base {
 exports com.starcom;
 exports com.starcom.debug;
+exports com.starcom.listener;
 exports com.starcom.file;
 exports com.starcom.math;
 exports com.starcom.system;

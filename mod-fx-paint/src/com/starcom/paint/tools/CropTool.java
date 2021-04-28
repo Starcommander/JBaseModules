@@ -10,12 +10,12 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import com.starcom.paint.Frame;
-import com.starcom.paint.PaintObject;
+import com.starcom.paint.AbstractPaintObject;
 
 public class CropTool extends CropToolAbstract
 {
   @Override
-  void doActivateGizmo(PaintObject headlessPaintObject)
+  void doActivateGizmo(AbstractPaintObject headlessPaintObject)
   {
     headlessPaintObject.setGizmoActive(pane, true);
   }
@@ -80,9 +80,9 @@ public class CropTool extends CropToolAbstract
   @Override
   void appendGizmoCircles(ArrayList<Node> gizmoList)
   {
-    gizmoList.add(PaintObject.createGizmoCircle(GIZMO_C));
-    gizmoList.add(PaintObject.createGizmoCircle(GIZMO_NW));
-    gizmoList.add(PaintObject.createGizmoCircle(GIZMO_SO));
+    gizmoList.add(AbstractPaintObject.createGizmoCircle(GIZMO_C));
+    gizmoList.add(AbstractPaintObject.createGizmoCircle(GIZMO_NW));
+    gizmoList.add(AbstractPaintObject.createGizmoCircle(GIZMO_SO));
   }
 
   @Override

@@ -8,7 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import com.starcom.paint.PaintObject;
+import com.starcom.paint.AbstractPaintObject;
 
 public abstract class CropToolAbstract implements ITool
 {
@@ -25,7 +25,7 @@ public abstract class CropToolAbstract implements ITool
   static double opacity = 0.2;
   Pane pane;
   Node selectedGizmo;
-  PaintObject headlessPaintObject;
+  AbstractPaintObject headlessPaintObject;
   ArrayList<Node> tmpGizmoList = new ArrayList<Node>();
 
   static Rectangle makeRect(String text)
@@ -95,7 +95,7 @@ public abstract class CropToolAbstract implements ITool
 
   abstract void appendGizmoCircles(ArrayList<Node> gizmoList);
   
-  abstract void doActivateGizmo(PaintObject headlessPaintObject);
+  abstract void doActivateGizmo(AbstractPaintObject headlessPaintObject);
   
   abstract void moveGizmos(ArrayList<Node> tmpGizmoList2, double x, double y, double w, double h);
   
@@ -172,7 +172,7 @@ public abstract class CropToolAbstract implements ITool
   /** Create a dummy object for activating panel-crop-frames **/
   private void initHeadlessPaintObject()
   {
-    headlessPaintObject = new PaintObject()
+    headlessPaintObject = new AbstractPaintObject()
     {
       @Override
       public void moveGizmo(Node gizmo, double posX, double posY)
@@ -198,6 +198,12 @@ public abstract class CropToolAbstract implements ITool
         doUpdateGizmoInitPositions(gizmoList);
       }
 
+      @Override
+      public String saveObj() { return null; }
+
+      @Override
+      public void loadObj(String data) {}
+      
     };
   }
 }
