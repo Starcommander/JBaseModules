@@ -17,12 +17,14 @@ public class EditTool implements ITool
   static AbstractPaintObject curObj;
   static ObjListener2 postUpdateHook;
   Pane pane;
-  
+
   @Override
   public void init(Pane pane)
   {
     this.pane = pane;
   }
+
+  public Pane getPane() { return pane; }
 
   @Override
   public void handle(EventType evType, MouseEvent event)

@@ -7,7 +7,7 @@ public class Run
 {
   static long id = -1;
 
-  /** Klasse dynamisch laden **/
+  /** Load class dynamically. Returns null on error. **/
   public static Object loadClass(String className)
   {
     try
@@ -17,7 +17,7 @@ public class Run
     } catch (Exception e) { severe(Run.class, e);}
     return null;
   }
-  
+
   public static void close(Object closeable)
   {
     call(closeable, "close");
@@ -37,7 +37,7 @@ public class Run
     } catch( Exception e ) { severe( Run.class, e); }
     return null;
   }
-  
+
   public static Object getFieldValueAsObject(Object clazz, String fieldName)
   {
     try
@@ -47,7 +47,7 @@ public class Run
     return null;
   }
 
-  /** Gibt eine eindeutige id zurueck. **/
+  /** Returns an unique threadsave id. (Simple counter) **/
   public synchronized static long getId()
   {
     id++;

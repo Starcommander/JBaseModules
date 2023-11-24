@@ -10,6 +10,6 @@ mod-base/src/com/starcom
 - listener/ObjListener2.java
 - math/Point2i.java (Simple point with integers for x and y)
 - math/Winkel.java (Calculation for triangle angles)
-- Run.java (Run commands)
+- Run.java (Runtime operations)
 - Stg.java (String operations)
 - system/ClassPath.java

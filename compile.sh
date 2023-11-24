@@ -34,7 +34,7 @@ mkdir -p bin
 javac --module-path="../target/:../target-lib/$MOD_NAME/" -d bin $JAVA_LIST
 check_exit "$?" "javac"
 jar --create --file="../target/$MOD_NAME"_$VERS.jar --module-version=$VERS -C bin .
-check_exit "$?" "javac"
+check_exit "$?" "jar-create"
 jar --describe-module --file="../target/$MOD_NAME"_$VERS.jar
-check_exit "$?" "javac"
+check_exit "$?" "jar-des-module"
 echo "Sucessfully created: target/$MOD_NAME"_$VERS.jar
